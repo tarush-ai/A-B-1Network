@@ -1,6 +1,6 @@
 /*
 * Author: Tarush Gupta
-* Date: February 17, 2026
+* Date: February 19, 2026
 * Description: A-B-1 Neural Network with gradient descent training.
 *              Supports configurable layers, rand/fixed init, and training/running modes.
 */
@@ -517,8 +517,11 @@ public class AB1
       int caseIndex;
       int k;
 
-      System.out.print("\nInputs\t\t");
-      if (isTraining)
+      if (showInputTable)
+      {
+         System.out.print("\nInputs\t\t");
+      }
+      if (showTruthTable && isTraining)
       {
          System.out.print("| Expected\t");
       }
@@ -526,12 +529,15 @@ public class AB1
 
       for (caseIndex = 0; caseIndex < numCases; ++caseIndex)
       {
-         for (k = 0; k < inputLayer; ++k)
+         if (showInputTable)
          {
-            System.out.print(inputs[caseIndex][k] + "\t");
+            for (k = 0; k < inputLayer; ++k)
+            {
+               System.out.print(inputs[caseIndex][k] + "\t");
+            }
          }
 
-         if (isTraining)
+         if (showTruthTable && isTraining)
          {
             System.out.print("| " + targets[caseIndex] + "\t\t");
          }
