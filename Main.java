@@ -43,16 +43,6 @@ public class Main
 */
       if (network.shouldRun)
       {
-         if (network.showInputTable)
-         {
-            network.printInputTable();
-         }
-
-         if (network.showTruthTable && network.isTraining)
-         {
-            network.printTruthTable();
-         }
-
          if (network.isTraining)
          {
             network.runTrainingCases();

@@ -510,16 +510,33 @@ public class AB1
    }
 
 /*
-* Reports run results: outputs only.
+* Reports run results with expected vs actual output.
 */
    public void reportRunResults()
    {
       int caseIndex;
+      int k;
 
-      System.out.println("\nRun Results:");
+      System.out.print("\nInputs\t\t");
+      if (isTraining)
+      {
+         System.out.print("| Expected\t");
+      }
+      System.out.println("| Actual");
+
       for (caseIndex = 0; caseIndex < numCases; ++caseIndex)
       {
-         System.out.println(results[caseIndex]);
+         for (k = 0; k < inputLayer; ++k)
+         {
+            System.out.print(inputs[caseIndex][k] + "\t");
+         }
+
+         if (isTraining)
+         {
+            System.out.print("| " + targets[caseIndex] + "\t\t");
+         }
+
+         System.out.println("| " + results[caseIndex]);
       }
    } // reportRunResults()
 } // class AB1
