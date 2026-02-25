@@ -9,7 +9,7 @@ public class AB1
 /*
 * Network config
 */
-   public int inputLayer;
+   public int inputLayer; 
    public int hiddenLayer;
    public double lambda;
    public double low;
@@ -121,7 +121,8 @@ public class AB1
    } // allocateMemory()
 
 /*
-* Populates network arrays.
+* Populate all of the network arrays based on the type of initialization
+* (i.e. random or fixed) and whether the network is training or not.
 */
    public void populateArrays()
    {
@@ -143,7 +144,9 @@ public class AB1
    } // populateArrays()
 
 /*
-* Sets input values for all test cases.
+* Sets input values for all relevant test cases, contingent on the function
+* that is being optimized, such as AND, OR, XOR, or a[0] XOR a[1] AND a[2]
+* for A=3.
 */
    public void setInputTable()
    {
@@ -153,7 +156,7 @@ public class AB1
       inputs[3][0] = 1.0; inputs[3][1] = 1.0;
 
 /*
-* XOR_AND (A=3)
+* a[0] XOR a[1] AND a[2] (A=3)
 * inputs[0][0] = 0.0; inputs[0][1] = 0.0; inputs[0][2] = 0.0;
 * inputs[1][0] = 0.0; inputs[1][1] = 0.0; inputs[1][2] = 1.0;
 * inputs[2][0] = 0.0; inputs[2][1] = 1.0; inputs[2][2] = 0.0;
@@ -174,7 +177,7 @@ public class AB1
    } // setInputTable()
 
 /*
-* Prints the input table.
+* Prints the input table by iterating through the inputs.
 */
    public void printInputTable()
    {
@@ -190,7 +193,7 @@ public class AB1
    } // printInputTable()
 
 /*
-* Prints the truth table.
+* Prints the truth table by iterating through the inputs and targets.
 */
    public void printTruthTable()
    {
@@ -206,7 +209,7 @@ public class AB1
    } // printTruthTable()
 
 /*
-* Random weight initialization
+* Initializes the weights randomly using the randomize function.
 */
    public void useRandomWeights()
    {
@@ -224,7 +227,7 @@ public class AB1
    } // useRandomWeights()
 
 /*
-* Fixed weights for 2-2-1 testing
+* Uses fixed weights for 2-2-1 testing.
 */
    public void useFixedWeights()
    {
@@ -243,8 +246,8 @@ public class AB1
    } // useFixedWeights()
 
 /*
-* Sets the truth table targets for A=2 based on the truthTable config.
-* Supports OR, AND, and XOR.
+* Sets the truth table targets for A=2 based on the truthTable config
+* for OR, AND, and XOR.
 */
    public void setTruthTable()
    {
@@ -286,7 +289,8 @@ public class AB1
    } // setTruthTable()
 
 /*
-* Returns a random double between low and high.
+* Returns a random double between low and high. It uses 
+* Math.random().
 */
    public double randomize(double low, double high)
    {
@@ -294,7 +298,8 @@ public class AB1
    } // randomize(double low, double high)
 
 /*
-* Generalizable activation function. User can specify this.
+* Generalizable activation function. User can specify this to be
+* sigmoid or linear. 
 */
    public double activation(double x)
    {
@@ -302,7 +307,8 @@ public class AB1
    }
 
 /*
-* Generalizable activation function derivative. User can specify this.
+* Generalizable activation function derivative. User can specify this
+* to be the derivative of sigmoid or linear.
 */
    public double activationDerivative(double num)
    {
@@ -310,7 +316,7 @@ public class AB1
    }
 
 /*
-* Sigmoid activation: 1 / (1 + e^-x).
+* Sigmoid activation: f(x) = 1 / (1 + e^-x). Uses Math.exp().
 */
    public double sigmoid(double x)
    {
@@ -318,15 +324,16 @@ public class AB1
    } // sigmoid(double x)
 
 /*
-* Sigmoid activation derivative: sigmoid (1 - sigmoid)
+* Sigmoid activation derivative: f'(x) = sigmoid (1 - sigmoid)
 */
-   public double sigmoidDerivative(double deriv)
+   public double sigmoidDerivative(double x)
    {
-      return deriv * (1.0 - deriv);
+      double s = sigmoid(x);
+      return s * (1.0 - s);
    }
 
 /*
-* Linear activation: x
+* Linear activation: f(x) = x
 */
    public double linear(double x)
    {
@@ -334,9 +341,9 @@ public class AB1
    }
 
 /*
-* Linear activation derivative: 1
+* Linear activation derivative: f'(x) = 1
 */
-   public double linearDerivative(double deriv)
+   public double linearDerivative(double x)
    {
       return 1.0;
    }
@@ -413,14 +420,14 @@ public class AB1
 /*
 * gradient descent
 */
-            psi0 = omega0 * activationDerivative(F0);
+            psi0 = omega0 * activationDerivative(theta0);
 
             for (j = 0; j < hiddenLayer; ++j)
             {
                deltaWJ0[j] += lambda * psi0 * h[j];
 
                omegaJ[j] = psi0 * wJ0[j];
-               psiJ[j] = omegaJ[j] * activationDerivative(h[j]);
+               psiJ[j] = omegaJ[j] * activationDerivative(thetaJ[j]);
                
                for (k = 0; k < inputLayer; ++k)
                {

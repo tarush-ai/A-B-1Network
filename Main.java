@@ -12,25 +12,17 @@ public class Main
    public static void main(String[] args)
    {
       AB1 network = new AB1();
-/*
-* Set Config Params
-*/
-      network.setConfig();
-/*
-* Echo Config Params
-*/
-      network.echoConfig();
-/*
-* Allocate Memory for Net Arrays
-*/
-      network.allocateMemory();
-/*
-* Populate Arrays
-*/
-      network.populateArrays();
+
+      network.setConfig(); //set the configuration parameters
+
+      network.echoConfig(); //echo the config parameters to the users
+
+      network.allocateMemory(); //allocate memory for the network arrays
+
+      network.populateArrays(); //populate the network arrays.
 
 /*
-* Train
+* Train if the network is training.
 */
       if (network.isTraining)
       {
@@ -39,7 +31,7 @@ public class Main
       }
 
 /*
-* Run
+* Run if the network is running. 
 */
       if (network.shouldRun)
       {
