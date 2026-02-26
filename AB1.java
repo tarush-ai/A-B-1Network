@@ -1,6 +1,6 @@
 /*
 * Author: Tarush Gupta
-* Date: February 19, 2026
+* Date: February 26, 2026
 * Description: A-B-1 Neural Network with gradient descent training.
 *              Supports configurable layers, rand/fixed init, and training/running modes.
 */
