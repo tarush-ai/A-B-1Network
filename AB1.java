@@ -398,18 +398,6 @@ public class AB1
       {
          totalError = 0.0;
 
-/*
-* Reset deltas
-*/
-         for (j = 0; j < hiddenLayer; ++j)
-         {
-            deltaWJ0[j] = 0.0;
-            for (k = 0; k < inputLayer; ++k)
-            {
-               deltaWKJ[k][j] = 0.0;
-            }
-         }
-
          for (caseIndex = 0; caseIndex < numCases; ++caseIndex)
          {
             populateInputAndRun(caseIndex);
@@ -424,29 +412,31 @@ public class AB1
 
             for (j = 0; j < hiddenLayer; ++j)
             {
-               deltaWJ0[j] += lambda * psi0 * h[j];
-
                omegaJ[j] = psi0 * wJ0[j];
                psiJ[j] = omegaJ[j] * activationDerivative(thetaJ[j]);
+
+               deltaWJ0[j] = lambda * psi0 * h[j];
                
                for (k = 0; k < inputLayer; ++k)
                {
-                  deltaWKJ[k][j] += lambda * a[k] * psiJ[j];
+
+                  double dE_dWKJ = -a[k] * psiJ[j];
+                  deltaWKJ[k][j] = -lambda * dE_dWKJ;
                }
             } // for (j = 0; j < hiddenLayer; ++j)
-         } // for (caseIndex = 0; caseIndex < numCases; ++caseIndex)
-         
+
 /*
 * Apply weight changes
 */
-         for (j = 0; j < hiddenLayer; ++j)
-         {
-            wJ0[j] += deltaWJ0[j];
-            for (k = 0; k < inputLayer; ++k)
+            for (j = 0; j < hiddenLayer; ++j)
             {
-               wKJ[k][j] += deltaWKJ[k][j];
+               wJ0[j] += deltaWJ0[j];
+               for (k = 0; k < inputLayer; ++k)
+               {
+                  wKJ[k][j] += deltaWKJ[k][j];
+               }
             }
-         }
+         } // for (caseIndex = 0; caseIndex < numCases; ++caseIndex)
 
          avgError = totalError / (double)numCases;
          iteration++;
