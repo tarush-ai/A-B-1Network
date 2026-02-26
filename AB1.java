@@ -58,9 +58,9 @@ public class AB1
 */
    public void setConfig()
    {
-      inputLayer = 2;
-      hiddenLayer = 2;
-      numCases = 4;
+      inputLayer = 3;
+      hiddenLayer = 3;
+      numCases = 8;
       low = -1.5;
       high = 1.5;
       maxIterations = 100000;
@@ -150,10 +150,20 @@ public class AB1
 */
    public void setInputTable()
    {
+      /*
       inputs[0][0] = 0.0; inputs[0][1] = 0.0;
       inputs[1][0] = 0.0; inputs[1][1] = 1.0;
       inputs[2][0] = 1.0; inputs[2][1] = 0.0;
       inputs[3][0] = 1.0; inputs[3][1] = 1.0;
+      */
+      inputs[0][0] = 0.0; inputs[0][1] = 0.0; inputs[0][2] = 0.0;
+      inputs[1][0] = 0.0; inputs[1][1] = 0.0; inputs[1][2] = 1.0;
+      inputs[2][0] = 0.0; inputs[2][1] = 1.0; inputs[2][2] = 0.0;
+      inputs[3][0] = 0.0; inputs[3][1] = 1.0; inputs[3][2] = 1.0;
+      inputs[4][0] = 1.0; inputs[4][1] = 0.0; inputs[4][2] = 0.0;
+      inputs[5][0] = 1.0; inputs[5][1] = 0.0; inputs[5][2] = 1.0;
+      inputs[6][0] = 1.0; inputs[6][1] = 1.0; inputs[6][2] = 0.0;
+      inputs[7][0] = 1.0; inputs[7][1] = 1.0; inputs[7][2] = 1.0;
 
 /*
 * a[0] XOR a[1] AND a[2] (A=3)
@@ -251,6 +261,15 @@ public class AB1
 */
    public void setTruthTable()
    {
+      targets[0] = 0.0; 
+      targets[1] = 0.0; 
+      targets[2] = 0.0; 
+      targets[3] = 1.0; 
+      targets[4] = 0.0; 
+      targets[5] = 1.0; 
+      targets[6] = 0.0; 
+      targets[7] = 0.0;
+
 /*
 * XOR
 * targets[0] = 0.0;
@@ -269,11 +288,11 @@ public class AB1
 
 /*
 * OR
+* targets[0] = 0.0;
+* targets[1] = 1.0;
+* targets[2] = 1.0;
+* targets[3] = 0.0;
 */
-      targets[0] = 0.0;
-      targets[1] = 1.0;
-      targets[2] = 1.0;
-      targets[3] = 1.0;
 
 /*
 *a[0] XOR a[1] AND a[2] (a specific test case for A=3)
